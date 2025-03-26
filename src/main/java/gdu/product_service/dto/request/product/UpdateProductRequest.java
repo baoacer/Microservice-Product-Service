@@ -11,8 +11,8 @@ public class UpdateProductRequest {
     private short productId;
     private String name;
     private String description;
-    private byte categoryId;
-    private short quantity;
+    private Byte categoryId;
+    private Short quantity;
     private BigDecimal price;
     private List<ImagesDto> images;
 }

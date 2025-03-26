@@ -6,6 +6,7 @@ import gdu.product_service.dto.request.product.GetAllProductRequest;
 import gdu.product_service.dto.request.product.SearchProductRequest;
 import gdu.product_service.dto.request.product.UpdateProductRequest;
 import gdu.product_service.dto.response.GetProductResponse;
+import gdu.product_service.dto.response.ObjectResponse;
 import gdu.product_service.dto.response.SearchResponse;
 import gdu.product_service.dto.response.UpdateProductResponse;
 import gdu.product_service.usecase.product.*;
@@ -29,14 +30,14 @@ public class ProductController {
     private final UpdateProductUseCase updateProductUseCase;
 
     @GetMapping("/product")
-    public ResponseEntity<Page<GetProductResponse>> getProduct(@RequestParam byte size, @RequestParam byte page) {
+    public ResponseEntity<ObjectResponse<ProductDto>> getProduct(@RequestParam byte size, @RequestParam byte page) {
         GetAllProductRequest request = GetAllProductRequest
                 .builder()
                 .size(size)
                 .page(page)
                 .build();
 
-        Page<GetProductResponse> response = this.getAllProductUseCase.execute(request);
+        ObjectResponse<ProductDto> response = this.getAllProductUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -68,10 +69,15 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @DeleteMapping("/product/{id}")
-    public ResponseEntity<Boolean> deleteProduct(@PathVariable short id) {
+    @DeleteMapping("/product")
+    public ResponseEntity<Boolean> deleteProduct(
+            @RequestParam short id
+    ) {
         Boolean isDelete = this.deleteProductUseCase.execute(id);
-        return ResponseEntity.status(HttpStatus.OK).body(isDelete);
+        if(isDelete){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/product")

@@ -48,27 +48,34 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
 
             Byte maxPosition = imageRepository.getMaxPosition(foundProduct.getId());
 
-            foundProduct.setName(request.getName());
-            foundProduct.setDescription(request.getDescription());
-            foundProduct.setPrice(request.getPrice());
+            if(request.getName() != null){
+                foundProduct.setName(request.getName());
+            }
+            if(request.getDescription() != null){
+                foundProduct.setDescription(request.getDescription());
+            }
+            if(request.getPrice() != null){
+                foundProduct.setPrice(request.getPrice());
+            }
+            if(request.getImages() != null){
+                List<ImagesEntity> images = new ArrayList<>();
+
+                for(ImagesDto image : request.getImages()) {
+                    images.add(
+                            ImagesEntity
+                                    .builder()
+                                    .src(image.getSrc())
+                                    .alt(image.getAlt())
+                                    .position((maxPosition != null) ? (byte) (maxPosition + 1) : 1)
+                                    .product(foundProduct)
+                                    .build()
+                    );
+                }
+                foundProduct.getImages().addAll(images);
+            }
             foundProduct.setCategory(category);
             foundProduct.setInventory(inventory);
 
-            List<ImagesEntity> images = new ArrayList<>();
-
-            for(ImagesDto image : request.getImages()) {
-                images.add(
-                        ImagesEntity
-                                .builder()
-                                .src(image.getSrc())
-                                .alt(image.getAlt())
-                                .position((maxPosition != null) ? (byte) (maxPosition + 1) : 1)
-                                .product(foundProduct)
-                                .build()
-                );
-            }
-
-            foundProduct.getImages().addAll(images);
 
             ProductEntity updatedProduct = this.productRepository.save(foundProduct);
             this.inventoryRepository.save(inventory);
