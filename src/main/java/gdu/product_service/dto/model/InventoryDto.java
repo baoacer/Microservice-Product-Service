@@ -17,5 +17,4 @@ public class InventoryDto {
     private short stock;
     private InventoryStatus status;
     private LocalDate updatedAt;
-    private short productId;
 }

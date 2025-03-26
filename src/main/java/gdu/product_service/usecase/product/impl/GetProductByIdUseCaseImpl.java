@@ -1,5 +1,6 @@
 package gdu.product_service.usecase.product.impl;
 
+import gdu.product_service.dto.model.ImagesDto;
 import gdu.product_service.dto.model.InventoryDto;
 import gdu.product_service.dto.model.ProductDto;
 import gdu.product_service.entity.CategoryEntity;
@@ -51,6 +52,15 @@ public class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
                             .status(inventory.getStatus())
                             .updatedAt(inventory.getUpdatedAt())
                             .build()
+                    )
+                    .images(foundProduct.getImages().stream()
+                            .map(image -> ImagesDto.builder()
+                                    .id(image.getId())
+                                    .src(image.getSrc())
+                                    .alt(image.getAlt())
+                                    .position(image.getPosition())
+                                    .build())
+                            .toList()
                     )
                     .build();
         } catch (RuntimeException e) {

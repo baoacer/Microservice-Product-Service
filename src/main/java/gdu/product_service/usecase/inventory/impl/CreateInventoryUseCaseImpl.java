@@ -35,7 +35,6 @@ public class CreateInventoryUseCaseImpl implements CreateInventoryUseCase {
 
             return InventoryDto.builder()
                     .id(saveInventory.getId())
-                    .productId(saveInventory.getProduct().getId())
                     .stock(saveInventory.getStock())
                     .status(saveInventory.getStatus())
                     .updatedAt(saveInventory.getUpdatedAt())
