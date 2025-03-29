@@ -18,7 +18,8 @@ public class ImagesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true)
+    @Column(columnDefinition = "TEXT", unique = true)
+    @Lob
     @GenericField
     private String src;
 
