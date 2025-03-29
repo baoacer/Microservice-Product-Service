@@ -57,7 +57,6 @@ public class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
                             .map(image -> ImagesDto.builder()
                                     .id(image.getId())
                                     .src(image.getSrc())
-                                    .alt(image.getAlt())
                                     .position(image.getPosition())
                                     .build())
                             .toList()

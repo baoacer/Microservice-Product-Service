@@ -58,7 +58,6 @@ public class SearchProductUseCaseImpl implements SearchProductUseCase {
                                             .builder()
                                             .id(image.getId())
                                             .src(image.getSrc())
-                                            .alt(image.getAlt())
                                             .position(image.getPosition())
                                             .build()
                                     ).toList()

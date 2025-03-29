@@ -40,8 +40,11 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
             ProductEntity foundProduct = this.productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new NotFoundException("Product not found"));
 
-            CategoryEntity category = this.categoryRepository.findById(request.getCategoryId())
-                            .orElseThrow(() -> new NotFoundException("Category not found"));
+            CategoryEntity category = this.categoryRepository.findByName(request.getCategory());
+
+            if(category == null) {
+                throw new NotFoundException("Category not found");
+            }
 
             InventoryEntity inventory = this.inventoryRepository.findByProduct_Id(foundProduct.getId());
             inventory.setStock(request.getQuantity());
@@ -65,7 +68,6 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
                             ImagesEntity
                                     .builder()
                                     .src(image.getSrc())
-                                    .alt(image.getAlt())
                                     .position((maxPosition != null) ? (byte) (maxPosition + 1) : 1)
                                     .product(foundProduct)
                                     .build()
@@ -84,7 +86,6 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
                     img -> ImagesDto.builder()
                             .id(img.getId())
                             .src(img.getSrc())
-                            .alt(img.getAlt())
                             .position(img.getPosition())
                             .build()
             ).toList();

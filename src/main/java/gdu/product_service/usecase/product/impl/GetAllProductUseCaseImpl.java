@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,7 +50,6 @@ public class GetAllProductUseCaseImpl implements GetAllProductUseCase {
                                      .map(image -> ImagesDto.builder()
                                              .id(image.getId())
                                              .src(image.getSrc())
-                                             .alt(image.getAlt())
                                              .position(image.getPosition())
                                              .build())
                                      .toList()

@@ -1,11 +1,7 @@
 package gdu.product_service.controller;
 
 import gdu.product_service.dto.model.ProductDto;
-import gdu.product_service.dto.request.product.CreateProductRequest;
-import gdu.product_service.dto.request.product.GetAllProductRequest;
-import gdu.product_service.dto.request.product.SearchProductRequest;
-import gdu.product_service.dto.request.product.UpdateProductRequest;
-import gdu.product_service.dto.response.GetProductResponse;
+import gdu.product_service.dto.request.product.*;
 import gdu.product_service.dto.response.ObjectResponse;
 import gdu.product_service.dto.response.SearchResponse;
 import gdu.product_service.dto.response.UpdateProductResponse;
@@ -28,6 +24,7 @@ public class ProductController {
     private final SearchProductUseCase searchProductUseCase;
     private final DeleteProductUseCase deleteProductUseCase;
     private final UpdateProductUseCase updateProductUseCase;
+    private final GetProductByCategoryUseCase getProductByCategoryUseCase;
 
     @GetMapping("/product")
     public ResponseEntity<ObjectResponse<ProductDto>> getProduct(@RequestParam byte size, @RequestParam byte page) {
@@ -38,6 +35,19 @@ public class ProductController {
                 .build();
 
         ObjectResponse<ProductDto> response = this.getAllProductUseCase.execute(request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/product-by")
+    public ResponseEntity<ObjectResponse<ProductDto>> getProductByCategory(
+            @RequestParam byte size,
+            @RequestParam byte page,
+            @RequestBody GetAllProductByCategoryRequest request
+    ) {
+        request.setSize(size);
+        request.setPage(page);
+
+        ObjectResponse<ProductDto> response = this.getProductByCategoryUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

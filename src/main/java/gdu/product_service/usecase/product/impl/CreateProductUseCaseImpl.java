@@ -57,7 +57,6 @@ public class CreateProductUseCaseImpl implements CreateProductUseCase {
                         ImagesEntity
                                 .builder()
                                 .src(image.getSrc())
-                                .alt(image.getAlt())
                                 .position(++position)
                                 .product(product)
                                 .build()
@@ -79,7 +78,6 @@ public class CreateProductUseCaseImpl implements CreateProductUseCase {
                     img -> ImagesDto.builder()
                             .id(img.getId())
                             .src(img.getSrc())
-                            .alt(img.getAlt())
                             .position(img.getPosition())
                             .build()
             ).toList();

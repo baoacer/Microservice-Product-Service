@@ -30,8 +30,8 @@ public class CategoryController {
 
     @GetMapping("/category")
     public ResponseEntity<List<CategoryDto>> category() {
-        List<CategoryDto> categoryDtos = this.getAllCategoryUseCase.execute();
-        return ResponseEntity.status(HttpStatus.OK).body(categoryDtos);
+        List<CategoryDto> categories = this.getAllCategoryUseCase.execute();
+        return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @PostMapping("/category")

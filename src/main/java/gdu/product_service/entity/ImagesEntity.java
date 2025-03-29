@@ -22,9 +22,6 @@ public class ImagesEntity {
     @GenericField
     private String src;
 
-    @GenericField
-    private String alt;
-
     @Column(columnDefinition = "TINYINT UNSIGNED")
     @GenericField
     private byte position;

@@ -2,6 +2,9 @@ server:
   port: 8081
 
 spring:
+  output:
+    ansi:
+      enabled: always
   application:
     name: product
   datasource:
@@ -10,10 +13,11 @@ spring:
     password: root
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: update
+#    hibernate:
+#      ddl-auto: update
 #    show-sql: true
     properties:
       hibernate:
         format_sql: true
+
 

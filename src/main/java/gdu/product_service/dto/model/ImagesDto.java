@@ -12,7 +12,5 @@ public class ImagesDto {
     @NotBlank
     private String src;
 
-    private String alt;
-
     private byte position;
 }
