@@ -32,6 +32,7 @@ public class GetProductByCategoryUseCaseImpl implements GetProductByCategoryUseC
     ) {
         Sort sort = Sort.by(request.getSortDirection(), request.getSortBy());
         PageRequest pageable = PageRequest.of(request.getPage(), request.getSize(), sort);
+
         CategoryEntity foundCategory = this.categoryRepository.findById(request.getCategoryId()).orElseThrow(
                 () -> new NotFoundException("Category not found"));
         Page<ProductEntity> pageResult = this.productRepository.findAllByCategory(foundCategory, pageable);

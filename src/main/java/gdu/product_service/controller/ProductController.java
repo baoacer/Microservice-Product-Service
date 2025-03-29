@@ -8,6 +8,7 @@ import gdu.product_service.dto.response.UpdateProductResponse;
 import gdu.product_service.usecase.product.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,11 +28,18 @@ public class ProductController {
     private final GetProductByCategoryUseCase getProductByCategoryUseCase;
 
     @GetMapping("/product")
-    public ResponseEntity<ObjectResponse<ProductDto>> getProduct(@RequestParam byte size, @RequestParam byte page) {
+    public ResponseEntity<ObjectResponse<ProductDto>> getProduct(
+            @RequestParam(defaultValue = "10")  byte size,
+            @RequestParam(defaultValue = "0") byte page,
+            @RequestParam String sortBy,
+            @RequestParam Sort.Direction sortDirection
+    ) {
         GetAllProductRequest request = GetAllProductRequest
                 .builder()
                 .size(size)
                 .page(page)
+                .sortBy(sortBy)
+                .sortDirection(sortDirection)
                 .build();
 
         ObjectResponse<ProductDto> response = this.getAllProductUseCase.execute(request);
@@ -40,12 +48,20 @@ public class ProductController {
 
     @GetMapping("/product-by")
     public ResponseEntity<ObjectResponse<ProductDto>> getProductByCategory(
-            @RequestParam byte size,
-            @RequestParam byte page,
-            @RequestBody GetAllProductByCategoryRequest request
+            @RequestParam Byte categoryId,
+            @RequestParam(defaultValue = "10")  byte size,
+            @RequestParam(defaultValue = "0") byte page,
+            @RequestParam String sortBy,
+            @RequestParam Sort.Direction sortDirection
     ) {
-        request.setSize(size);
-        request.setPage(page);
+        GetAllProductByCategoryRequest request = GetAllProductByCategoryRequest
+                .builder()
+                .categoryId(categoryId)
+                .size(size)
+                .page(page)
+                .sortBy(sortBy)
+                .sortDirection(sortDirection)
+                .build();
 
         ObjectResponse<ProductDto> response = this.getProductByCategoryUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -69,6 +85,7 @@ public class ProductController {
                 .page(page)
                 .size(size)
                 .build();
+
         Page<SearchResponse> responses = this.searchProductUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.OK).body(responses);
     }

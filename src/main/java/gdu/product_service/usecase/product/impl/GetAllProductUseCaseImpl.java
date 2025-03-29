@@ -28,7 +28,8 @@ public class GetAllProductUseCaseImpl implements GetAllProductUseCase {
     @Override
     public ObjectResponse<ProductDto> execute(GetAllProductRequest request) {
         try {
-            PageRequest pageable = PageRequest.of(request.getPage(), request.getSize());
+            Sort sort = Sort.by(request.getSortDirection(), request.getSortBy());
+            PageRequest pageable = PageRequest.of(request.getPage(), request.getSize(), sort);
             Page<ProductEntity> pageResult = this.productRepository.findAll(pageable);
 
              List<ProductDto> content = pageResult
