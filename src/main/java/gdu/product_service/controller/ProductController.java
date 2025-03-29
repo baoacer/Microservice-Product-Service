@@ -31,8 +31,8 @@ public class ProductController {
     public ResponseEntity<ObjectResponse<ProductDto>> getProduct(
             @RequestParam(defaultValue = "10")  byte size,
             @RequestParam(defaultValue = "0") byte page,
-            @RequestParam String sortBy,
-            @RequestParam Sort.Direction sortDirection
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "DESC") Sort.Direction sortDirection
     ) {
         GetAllProductRequest request = GetAllProductRequest
                 .builder()
@@ -51,8 +51,8 @@ public class ProductController {
             @RequestParam Byte categoryId,
             @RequestParam(defaultValue = "10")  byte size,
             @RequestParam(defaultValue = "0") byte page,
-            @RequestParam String sortBy,
-            @RequestParam Sort.Direction sortDirection
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "DESC") Sort.Direction sortDirection
     ) {
         GetAllProductByCategoryRequest request = GetAllProductByCategoryRequest
                 .builder()

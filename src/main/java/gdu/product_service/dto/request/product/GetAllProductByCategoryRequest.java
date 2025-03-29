@@ -11,5 +11,5 @@ public class GetAllProductByCategoryRequest {
     private byte page;
     private byte size;
     private String sortBy = "id";
-    private Sort.Direction sortDirection = Sort.Direction.ASC;
+    private Sort.Direction sortDirection = Sort.Direction.DESC;
 }
