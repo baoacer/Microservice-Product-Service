@@ -5,5 +5,7 @@ import gdu.product_service.dto.request.product.GetAllProductByCategoryRequest;
 import gdu.product_service.dto.response.ObjectResponse;
 
 public interface GetProductByCategoryUseCase {
-    ObjectResponse<ProductDto> execute(GetAllProductByCategoryRequest request);
+    ObjectResponse<ProductDto> execute(
+            GetAllProductByCategoryRequest request
+    );
 }

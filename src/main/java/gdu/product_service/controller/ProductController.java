@@ -54,14 +54,12 @@ public class ProductController {
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "DESC") Sort.Direction sortDirection
     ) {
-        GetAllProductByCategoryRequest request = GetAllProductByCategoryRequest
-                .builder()
-                .categoryId(categoryId)
-                .size(size)
-                .page(page)
-                .sortBy(sortBy)
-                .sortDirection(sortDirection)
-                .build();
+        GetAllProductByCategoryRequest request = new GetAllProductByCategoryRequest();
+        request.setCategoryId(categoryId);
+        request.setSize(size);
+        request.setPage(page);
+        request.setSortBy(sortBy);
+        request.setSortDirection(sortDirection);
 
         ObjectResponse<ProductDto> response = this.getProductByCategoryUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);

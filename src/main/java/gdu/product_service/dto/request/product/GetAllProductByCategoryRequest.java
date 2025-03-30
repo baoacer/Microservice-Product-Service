@@ -1,11 +1,11 @@
 package gdu.product_service.dto.request.product;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Sort;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class GetAllProductByCategoryRequest {
     private Byte categoryId;
     private byte page;

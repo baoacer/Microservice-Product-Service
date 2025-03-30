@@ -8,7 +8,7 @@ spring:
   application:
     name: product
   datasource:
-    url: jdbc:mysql://localhost:3306/QuanLyCuaHang
+    url: jdbc:mysql://localhost:3306/shophandmade
     username: root
     password: root
   jpa:
